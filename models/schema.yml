@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: customers
+  - name: dim_customers
     description: One record per customer
     columns:
       - name: customer_id
@@ -30,10 +30,13 @@ models:
           - unique
           - not_null
       - name: status
+        description: '{{ doc("order_status") }}'
         tests:
           - accepted_values:
-              values: ['placed', 'shipped', 'completed', 'return_pending', 'returned']
+              values:
+                ["placed", "shipped", "completed", "return_pending", "returned"]
       - name: customer_id
+        description: Foreign key to stg_customers.customer_id.
         tests:
           - not_null
           - relationships:
